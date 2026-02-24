@@ -1,37 +1,42 @@
-const rows = ["a", "b", "c", "d", "e", "f", "g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
+//add object ..... (next lesson)
 
-let html ="";
-let counter = 1;
+function makeRows(sectionLength, rowLength, placement){
+    const rows = ["a", "b", "c", "d", "e", "f", "g","h","i","j","k","l","m","n","o","p","q","r","s","t"];
 
-rows.forEach (function (row){
-    //loop through each row 
-    html += `<div class="label">${row}</div>`;
+    let html ="";
+    let counter = 1;
 
-    for(let i=0; i < 3; i++){
-        //nested loop to generate seats for each row
-        html += `<div id="${row + counter}">${counter}</div>`;
-        counter++;
-    }
-    counter = counter + 12;
-    
-});
+    rows.forEach (row => {
+        
+        switch(placement){
+            //make label
+            case "left": html += `<div class="label">${row}</div>`; break; //don't forget to add BREAK!
+            //add 12 to the counter
+            case "right": counter = counter + (rowLength - sectionLength); break;//row 15 - section 3 = 12
+            //add 3 to the counter
+            default: counter = counter + (rowLength - sectionLength)/2;  break;
+        }
 
-document.getElementById('left').innerHTML = html;
+        //loop in here 
+            for(let i=0; i < sectionLength; i++){
+            //nested loop to generate seats for each row
+            html += `<div class="a" id="${row + counter}">${counter}</div>`;
+            counter++;
+        }
 
+        switch(placement){
+            //add 12 to the counter
+            case "left": counter = counter + (rowLength - sectionLength); break;
+            //add the label
+            case "right": html += `<div class="label">${row}</div>`; break; 
+            //add 3 to the counter
+            default: counter = counter + (rowLength - sectionLength)/2; break;
+        }
 
+    });
+    document.getElementById(placement).innerHTML = html;
+}
 
-//Right side aka reverse -> Seats first then label.
-html ="";
-counter = 1;
-
-rows.forEach (function (row){
-    counter = counter + 12; //add 12 seats first THEN do counter
-    for(let i=0; i < 3; i++){
-        html += `<div id="${row + counter}">${counter}</div>`;
-        counter++;
-    }
-    //Add label at the end
-    html += `<div class="label">${row}</div>`;
-});
-
-document.getElementById('right').innerHTML = html;
+makeRows(3, 15, 'left');
+makeRows(3, 15, 'right');
+makeRows(9, 15, 'middle');

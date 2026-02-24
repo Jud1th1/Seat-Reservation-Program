@@ -1,9 +1,0 @@
-Looping Through Rows and Seats
-
-An array is created to represent the rows, and a loop is used to iterate through each row.
-A nested loop is implemented to create individual seats within each row, which can be complex for beginners.
-
-Using forEach Loop
-
-The forEach method is introduced to work with arrays, allowing a function to process each row.
-The content also mentions the possibility of using arrow functions for a more modern syntax, which will be covered later.
